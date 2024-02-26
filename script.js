@@ -17,7 +17,8 @@ function handleClick(index) {
     if (!gameActive || gameBoard[index] !== '') return;
 
     gameBoard[index] = currentPlayer;
-    document.getElementsByClassName('cell')[index].innerText = currentPlayer;
+    const cellElement = document.getElementsByClassName('cell')[index];
+    cellElement.innerHTML = `<img src="${currentPlayer}.png" alt="${currentPlayer}">`;
 
     if (checkWin()) {
         document.getElementById('result').innerText = `Player ${currentPlayer} wins!`;
@@ -38,4 +39,18 @@ function checkWin() {
         }
     }
     return false;
+}
+
+
+function resetGame() {
+    currentPlayer = 'X';
+    gameBoard = ['', '', '', '', '', '', '', '', ''];
+    gameActive = true;
+
+    const cells = document.getElementsByClassName('cell');
+    for (const cell of cells) {
+        cell.innerHTML = '';
+    }
+
+    document.getElementById('result').innerText = '';
 }
